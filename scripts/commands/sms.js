@@ -28,18 +28,16 @@ module.exports.run = async function({ api, event, args }) {
         const page = await browser.newPage();
         await page.goto(`http://pikachubd.rf.gd/CSMS.php?receiver=${encodeURIComponent(phoneNumber)}&text=${encodeURIComponent(message)}`);
         
-        
+        // Wait for a specific element or event that indicates success
         await page.waitFor(5000);
         
-        
-        const content = await page.content();
-        console.log("Page Content:", content);
+        // You may want to check for a success message or element on the page
         
         await browser.close();
         
         api.sendMessage("SMS request sent successfully!", threadID);
     } catch (error) {
         console.error(error);
-        api.sendMessage("SMS request sent successfully!", threadID);
+        api.sendMessage("Failed to send SMS. Please try again later.", threadID);
     }
 };
