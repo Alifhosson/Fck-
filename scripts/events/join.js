@@ -1,23 +1,3 @@
-module.exports.config = {
-  name: "join",
-  eventType: ['log:subscribe'],
-  version: "1.0.0",
-  credits: "Mirai-Team",
-  description: "GROUP UPDATE NOTIFICATION"
-};
-
-const fs = require('fs-extra');
-const { loadImage, createCanvas, registerFont } = require("canvas");
-const axios = require('axios');
-const jimp = require("jimp");
-const fontlink = 'https://drive.google.com/u/0/uc?id=10XFWm9F6u2RKnuVIfwoEdlav2HhkAUIB&export=download';
-
-module.exports.circle = async (image) => {
-  image = await jimp.read(image);
-  image.circle();
-  return await image.getBufferAsync("image/png");
-}
-
 module.exports.run = async function ({ api, event }) {
   const { threadID } = event;
 
@@ -37,7 +17,7 @@ module.exports.run = async function ({ api, event }) {
       
       await api.sendMessage({
         body: `${global.config.BOTNAME} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱
-      <------------------------------>  
+        <------------------------------>  
         𝗕𝗼𝘁 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹 !!! 
 
         𝗔𝗽𝗽𝗿𝗼𝘃𝗮𝗹 𝗔𝗹𝗹𝗼𝘄 𝗜𝗻 𝗧𝗵𝗶𝘀 𝗚𝗿𝗼𝘂𝗽 !!!
@@ -67,35 +47,10 @@ module.exports.run = async function ({ api, event }) {
         ✿ 𝗪𝗣: 01615623399`,
         attachment: fs.createReadStream(gifPath)
       }, threadID);
-    } catch (error) {
-      console.error("Error downloading GIF:", error);
     }
-  } else {
-    try {
-      if (!fs.existsSync(__dirname + `/Nayan/font/Semi.ttf`)) {
-        const getfont = (await axios.get(fontlink, { responseType: "arraybuffer" })).data;
-        fs.writeFileSync(__dirname + `/Nayan/font/Semi.ttf`, Buffer.from(getfont, "utf-8"));
-      }
-
-      const { createReadStream } = fs;
-      const { participantIDs } = await api.getThreadInfo(threadID);
-      const threadData = global.data.threadData.get(parseInt(threadID)) || {};
-      let mentions = [], nameArray = [], memLength = [], iduser = [], abx = [];
-
-      for (let id in event.logMessageData.addedParticipants) {
-        const userName = event.logMessageData.addedParticipants[id].fullName;
-        iduser.push(event.logMessageData.addedParticipants[id].userFbId.toString());
-        nameArray.push(userName);
-        mentions.push({ tag: userName, id: event.senderID });
-        memLength.push(participantIDs.length - id);
-      }
-
-      for (let o = 0; o < event.logMessageData.addedParticipants.length; o++) {
-        const pathImg = __dirname + `/Nayan/join/${o}.png`;
-        // Add your logic for each added participant here
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  } catch (error) {
+    console.error("Error downloading GIF:", error);
   }
-           }
+
+  // The rest of your code...
+}
