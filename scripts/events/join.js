@@ -1,3 +1,11 @@
+module.exports.config = {
+  name: "join",
+  eventType: ['log:subscribe'],
+  version: "1.0.0",
+  credits: "Mirai-Team",
+  description: "GROUP UPDATE NOTIFICATION"
+};
+
 const fs = require('fs-extra');
 const { loadImage, createCanvas, registerFont } = require("canvas");
 const axios = require('axios');
@@ -10,27 +18,26 @@ module.exports.circle = async (image) => {
   return await image.getBufferAsync("image/png");
 }
 
-module.exports.run = async function({ api, event, Users }) {
-  const moment = require("moment-timezone");
+module.exports.run = async function ({ api, event }) {
   const { threadID } = event;
-  const threadInfo = await api.getThreadInfo(threadID);
-  const threadName = threadInfo.threadName;
 
-  if (!event.logMessageData.addedParticipants || !Array.isArray(event.logMessageData.addedParticipants)) {
-    return;
-  }
+  try {
+    if (!event.logMessageData.addedParticipants || !Array.isArray(event.logMessageData.addedParticipants)) {
+      return;
+    }
 
-  if (event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
-    let gifUrl = 'https://i.imgur.com/wrGpvmQ.mp4';
-    let gifPath = __dirname + '/Nayan/join/join.gif';
+    if (event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
+      const gifUrl = 'https://i.imgur.com/wrGpvmQ.mp4';
+      const gifPath = __dirname + '/Nayan/join/join.gif';
 
-    try {
       const response = await axios.get(gifUrl, { responseType: 'arraybuffer' });
       fs.writeFileSync(gifPath, response.data);
-      await api.sendMessage("চলে এসেছি আমি আলিফের পিচ্চ বট তোমাদের মাঝে-😚😉🥀", event.threadID);
+
+      await api.sendMessage("চলে এসেছি আমি আলিফের পিচ্চ বট তোমাদের মাঝে-😚😉🥀", threadID);
+      
       await api.sendMessage({
-        body: `${global.config.BOTNAME} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 
-        <------------------------------>  
+        body: `${global.config.BOTNAME} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱
+      <------------------------------>  
         𝗕𝗼𝘁 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹 !!! 
 
         𝗔𝗽𝗽𝗿𝗼𝘃𝗮𝗹 𝗔𝗹𝗹𝗼𝘄 𝗜𝗻 𝗧𝗵𝗶𝘀 𝗚𝗿𝗼𝘂𝗽 !!!
@@ -66,16 +73,16 @@ module.exports.run = async function({ api, event, Users }) {
   } else {
     try {
       if (!fs.existsSync(__dirname + `/Nayan/font/Semi.ttf`)) {
-        let getfont = (await axios.get(fontlink, { responseType: "arraybuffer" })).data;
+        const getfont = (await axios.get(fontlink, { responseType: "arraybuffer" })).data;
         fs.writeFileSync(__dirname + `/Nayan/font/Semi.ttf`, Buffer.from(getfont, "utf-8"));
-      };
-      const { createReadStream } = fs;
-      let { participantIDs } = await api.getThreadInfo(threadID);
-      const threadData = global.data.threadData.get(parseInt(threadID)) || {};
-      var mentions = [], nameArray = [], memLength = [], iduser = [];
-      var abx = [];
+      }
 
-      for (id in event.logMessageData.addedParticipants) {
+      const { createReadStream } = fs;
+      const { participantIDs } = await api.getThreadInfo(threadID);
+      const threadData = global.data.threadData.get(parseInt(threadID)) || {};
+      let mentions = [], nameArray = [], memLength = [], iduser = [], abx = [];
+
+      for (let id in event.logMessageData.addedParticipants) {
         const userName = event.logMessageData.addedParticipants[id].fullName;
         iduser.push(event.logMessageData.addedParticipants[id].userFbId.toString());
         nameArray.push(userName);
@@ -84,8 +91,11 @@ module.exports.run = async function({ api, event, Users }) {
       }
 
       for (let o = 0; o < event.logMessageData.addedParticipants.length; o++) {
-        let pathImg = __dirname + `/Nayan/join/${o}.png`;)
+        const pathImg = __dirname + `/Nayan/join/${o}.png`;
+        // Add your logic for each added participant here
       }
-    } catch (e) { return console.log(e) };
+    } catch (e) {
+      console.error(e);
+    }
   }
-}
+           }
