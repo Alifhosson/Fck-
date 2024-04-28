@@ -48,7 +48,7 @@ module.exports.run = async function({ api, event, Users }) {
   if (event.logMessageData.addedParticipants && Array.isArray(event.logMessageData.addedParticipants) && event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
     //api.changeNickname(`𝗕𝗢𝗧 ${(!global.config.BOTNAME) ? "Buddy" : global.config.BOTNAME}`, threadID, api.getCurrentUserID());
 
-    let gifUrl = 'https://i.imgur.com/wrGpvmQ.mp4';
+    let gifUrl = 'https://i.imgur.com/pI1FkGV.mp4';
 let gifPath = __dirname + '/Nayan/join/join.gif';
 
 axios.get(gifUrl, { responseType: 'arraybuffer' })
@@ -78,7 +78,7 @@ https://www.facebook.com/Alifhosson.xxx?mibextid=ZbWKwL
 
 ❁ 𝗘𝗺𝗮𝗶𝗹: alifhosson5@gmail.com
 
-✿ 𝗪𝗣: 01615623399`, attachment: fs.createReadStream(gifPath)}, threadID));
+✿ 𝗪𝗣: 016156233399`, attachment: fs.createReadStream(gifPath)}, threadID));
 })
 .catch(error => {
     console.error(error);
@@ -188,4 +188,4 @@ https://www.facebook.com/Alifhosson.xxx?mibextid=ZbWKwL
       }
     } catch (e) { return console.log(e) };
   }
-}
+                       }
