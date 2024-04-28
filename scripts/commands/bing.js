@@ -28,7 +28,7 @@ start: async function({ nayan, events, args, lang}) {
   const n = apis.data.bing
     if(!prompt) return nayan.reply(lang('missing'), events.threadID, events.messageID)
 
-  const rndm = ['cookie'] // input your cookie hare
+  const rndm = ['1lvsH23w9eRXKNEx0qDtMii3u48N9e4D1IClma_O-tfwUUSw3hN_N6PIK1lEaeb2L8GtCxLSq0tb9THvIVtgfHNwLgYMsDnscokLSnuifxrmj_byvMZDyI7z8pcDJ_87LSRxHmjMli0w9xiA0XuUx1LZ6szxvJdkLL21f06C39U1R_OQrvSppCf-sPvXtWBtC86Vg_hSVAnFNONq8L8_kaQ'] // input your cookie hare
 
   var cookie = rndm[Math.floor(Math.random() * rndm.length)];
 
