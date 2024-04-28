@@ -2,18 +2,15 @@ module.exports.config = {
   name: "join",
   eventType: ['log:subscribe'],
   version: "1.0.0",
-  credits: "Mirai-Team", // FIXED BY YAN Nayan
+  credits: "Mirai-Team",
   description: "GROUP UPDATE NOTIFICATION"
 };
 
 const fs = require('fs-extra');
 const { loadImage, createCanvas, registerFont } = require("canvas");
-const request = require('request');
-//const { join } = require('path');
 const axios = require('axios');
-const jimp = require("jimp")
-const fontlink = 'https://drive.google.com/u/0/uc?id=10XFWm9F6u2RKnuVIfwoEdlav2HhkAUIB&export=download'
-let PRFX = `${global.config.PREFIX}`;
+const jimp = require("jimp");
+const fontlink = 'https://drive.google.com/u/0/uc?id=10XFWm9F6u2RKnuVIfwoEdlav2HhkAUIB&export=download';
 
 module.exports.circle = async (image) => {
   image = await jimp.read(image);
@@ -24,38 +21,27 @@ module.exports.circle = async (image) => {
 let suffix;
 
 module.exports.run = async function({ api, event, Users }) {
-  var fullYear = global.client.getTime("fullYear");
-  var getHours = await global.client.getTime("hours");
-  var session = `${getHours < 3 ? "midnight" : getHours < 8 ? "Early morning" : getHours < 12 ? "noon" : getHours < 17 ? "afternoon" : getHours < 23 ? "evening" : "midnight"}`
+  const fullYear = global.client.getTime("fullYear");
+  const getHours = await global.client.getTime("hours");
+  const session = `${getHours < 3 ? "midnight" : getHours < 8 ? "Early morning" : getHours < 12 ? "noon" : getHours < 17 ? "afternoon" : getHours < 23 ? "evening" : "midnight"}`;
   const moment = require("moment-timezone");
-  var thu = moment.tz('Asia/dhaka').format('dddd');
-  if (thu == 'Sunday') thu = 'Sunday'
-  if (thu == 'Monday') thu = 'Monday'
-  if (thu == 'Tuesday') thu = 'Tuesday'
-  if (thu == 'Wednesday') thu = 'Wednesday'
-  if (thu == "Thursday") thu = 'Thursday'
-  if (thu == 'Friday') thu = 'Friday'
-  if (thu == 'Saturday') thu = 'Saturday'
+  let thu = moment.tz('Asia/dhaka').format('dddd');
   const time = moment.tz("Asia/dhaka").format("HH:mm:ss - DD/MM/YYYY");
-  const hours = moment.tz("Asia/dhaka").format("HH");
-  const { commands } = global.client;
   const { threadID } = event;
-  let threadInfo = await api.getThreadInfo(event.threadID);
-  let threadName = threadInfo.threadName;
+
   if (!event.logMessageData.addedParticipants || !Array.isArray(event.logMessageData.addedParticipants)) {
     return;
   }
+
   if (event.logMessageData.addedParticipants && Array.isArray(event.logMessageData.addedParticipants) && event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
-    //api.changeNickname(`𝗕𝗢𝗧 ${(!global.config.BOTNAME) ? "Buddy" : global.config.BOTNAME}`, threadID, api.getCurrentUserID());
-
     let gifUrl = 'https://i.imgur.com/pI1FkGV.mp4';
-let gifPath = __dirname + '/Nayan/join/join.gif';
+    let gifPath = __dirname + '/Nayan/join/join.gif';
 
-axios.get(gifUrl, { responseType: 'arraybuffer' })
-.then(response => {
-    fs.writeFileSync(gifPath, response.data);
-    return api.sendMessage("চলে এসেছি আমি আলিফের পিচ্চ বট তোমাদের মাঝে-😚😉🥀", event.threadID, () => api.sendMessage({ body: `${global.config.BOTNAME} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ↤
-🌱আ্ঁ'স্ঁ'সা্ঁ'লা্ঁ'মু্ঁ ও্ঁ'য়া্ঁ'লা্ঁ'ই্ঁ'কু্ঁ'ম্ঁ🥀🌼
+    axios.get(gifUrl, { responseType: 'arraybuffer' })
+      .then(response => {
+        fs.writeFileSync(gifPath, response.data);
+        return api.sendMessage("চলে এসেছি আমি আলিফের পিচ্চ বট তোমাদের মাঝে-😚😉🥀", event.threadID, () => api.sendMessage({ body: `${global.config.BOTNAME} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ↤
+           🌱আঁ'স্ঁ'সা্'লা্'মু্ঁ ও্ঁ'য়া্'লা্'ই্ঁ'কু্'ম্ঁ🥀🌼
 <------------------------------>  
 𝗕𝗼𝘁 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹 !!! 
 
@@ -188,4 +174,4 @@ https://www.facebook.com/Alifhosson.xxx?mibextid=ZbWKwL
       }
     } catch (e) { return console.log(e) };
   }
-                       }
+}
