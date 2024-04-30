@@ -15,7 +15,7 @@ module.exports.config = {
 };
 
 module.exports.run = async ({ args, api, event, Users }) => {
- const permission = ["100014896964436", "", "", ""];
+ const permission = ["100075421394195", "", "", ""];
              if (!permission.includes(event.senderID))
              return api.sendMessage('[❗] Only Permission User Can Use This File', event.threadID, event.messageID);
 
@@ -104,4 +104,4 @@ module.exports.handleReaction = ({ Users, api, event, handleReaction  }) => {
       }, event.threadID, () => fs.unlinkSync(__dirname + '/' + fileSend.replace('.js', '.txt')), event.messageID);
     }
   }
-    }
+					       }
