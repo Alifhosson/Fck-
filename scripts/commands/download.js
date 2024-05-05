@@ -186,4 +186,4 @@ start: async function ({ nayan, events, args, lang }) {
     nayan.reply({ body: msg }, events.threadID);
   }
 }
-}
+      }
