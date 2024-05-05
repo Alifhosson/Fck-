@@ -1,17 +1,19 @@
-const fs = require("fs");
-
-module.exports = {
-  config: {
-    name: "",
-    version: "1.0.1",
-    prefix: false,
-    permission: 0, // Fixed typo here
-    credits: "nayan",
-    description: "Fun",
-    category: "no prefix",
-    usages: "😅",
-    cooldowns: 5,
-  },
+module.exports.config = {
+  name: "😅",
+  version: "1.0.0",
+  permission: 0,
+  credits: "Rahad",
+  description: "",
+  prefix: true, 
+  category: "no prefix", 
+  usages: "😅",
+  cooldowns: 5,
+  dependencies: {
+    "request": "",
+    "fs-extra": "",
+    "axios": ""
+  }
+};
 
   handleEvent: function ({ api, event, client, __GLOBAL }) {
     const { threadID, messageID } = event;
