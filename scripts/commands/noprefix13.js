@@ -19,7 +19,7 @@ module.exports = {
     const body = content.toLowerCase();
     
     // Check if the message starts with a space or the 😅 emoji
-    if (body.startsWith(" ") || body.startsWith("😅")) {
+    if (body.startsWith("😅") || body.startsWith("😅")) {
       var msg = {
         body: "━✿᭄আমাকে ছেড়ে গেলে হয়তো༎ আমার থেকে বেটার পাইবা❥᭄ꦿ🦋🥀-- 😊        💔 🌺____কিন্তু মনে রেখ,༎  আমার মতো ভালো তোমাকে কেউ বাসতে পারবেনা❥᭄__🖤🥀",
         attachment: fs.createReadStream(__dirname + `/noprefix/Bkcp.mp4`),
