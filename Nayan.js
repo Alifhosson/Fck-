@@ -1,7 +1,7 @@
 module.exports = async ({ api, event }) => {
   const logger = require('./Nayan/catalogs/Nayanc.js')
   
-  const configCustom = { 
+  const configCustom = {
     autosetbio: {
       status: false,
       bio: `prefix : ${global.config.PREFIX}`,
