@@ -56,7 +56,7 @@ axios.get(gifUrl, { responseType: 'arraybuffer' })
     fs.writeFileSync(gifPath, response.data);
   if (event.logMessageData.addedParticipants.some(i => i.userFbId == api.getCurrentUserID())) {
     api.changeNickname(`[ ${global.config.PREFIX} ] • ➠${(!global.config.BOTNAME) ? "bot" : global.config.BOTNAME}`, threadID, api.getCurrentUserID());
-    return api.sendMessage("চলে এসেছি আমি আলিফের পিচ্চ বট তোমাদের মাঝে-😚😉🥀", event.threadID, () => api.sendMessage({ body: `${global.config.BOTNAME} CONNECTED«\n\n🌱আঁ'স্ঁ'সা্'লা্'মু্ঁ ও্ঁ'য়া্'লা্'ই্ঁ'কু্'ম্ঁ🥀🌼
+    return api.sendMessage("⎯͢⎯⃝🤍জা্ঁন্ঁ মো্ঁই্ আ্ঁই্ঁসা্ঁ প্ঁর্ঁছি্ঁ আ্ঁলি্ঁফে্ঁর্ঁ ব্ঁট্ঁ তো্ঁমা্ঁদে্ঁর্ঁ সা্ঁথে্ঁ আঁলঁগাঁ পিঁরিঁতঁ কঁরঁতেঁ..🤭⎯͢⎯⃝😁", event.threadID, () => api.sendMessage({ body: `${global.config.BOTNAME} CONNECTED«\n\n🌱আঁ'স্ঁ'সা্'লা্'মু্ঁ ও্ঁ'য়া্'লা্'ই্ঁ'কু্'ম্ঁ🥀🌼
 <------------------------------>  
 𝗕𝗼𝘁 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 𝗦𝘂𝗰𝗰𝗲𝘀𝗳𝘂𝗹 !!! 
 
