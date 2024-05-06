@@ -1,3 +1,15 @@
+module.exports = {
+  config: {
+    name: "bing",
+    version: "1.0.0",
+    permission: 0,
+    credits: "Nayan",
+    description: "",
+    prefix: 'awto',
+    category: "auto prefix",
+    usages: "bing prompt",
+    cooldowns: 10,
+},
 const axios = require('axios');
 const fs = require('fs');
 
@@ -12,17 +24,4 @@ async function fetchSVG() {
     }
 }
 
-module.exports = {
-    config: {
-        name: "bing",
-        version: "1.0.0",
-        permission: 0,
-        credits: "Nayan",
-        description: "",
-        prefix: 'awto',
-        category: "auto prefix",
-        usages: "bing prompt",
-        cooldowns: 10,
-    },
-    fetchSVG: fetchSVG
-};
+fetchSVG();
