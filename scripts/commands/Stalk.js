@@ -1,11 +1,11 @@
 const axios = require('axios');
-const { unlinkSync, writeFileSync, createReadStream } = require('fs-extra');
+const { unlinkSync, writeFileSync, createReadStream, ensureDirSync } = require('fs-extra'); // Added ensureDirSync
 
 module.exports.config = {
     name: "stalk",
-    version: "1.0.0",
+    version: "1.0",
     author: "RUBISH",
-    permission: 1,
+    permission: 0,
     description: "Retrieve information about a user on Facebook.",
     commandCategory: "Information",
     usage: "/stalk <@mention or reply to a message of the user>",
@@ -28,6 +28,7 @@ module.exports.run = async function ({ api, args, event }) {
         const response = await axios.get(`https://noobs-api.onrender.com/dipto/fbinfo?id=${userId}&key=dipto008`);
         const apiResponse = response.data;
         const path = __dirname + '/cache/stalk.jpg';
+        ensureDirSync(__dirname + '/cache'); // Ensure cache directory exists
         const imgResponse = await axios.get(apiResponse.photo, { responseType: "arraybuffer" });
         
         if (!imgResponse.data) {
