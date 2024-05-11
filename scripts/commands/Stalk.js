@@ -7,7 +7,7 @@ module.exports.config = {
     author: "RUBISH",
     permission: 1,
     description: "Retrieve information about a user on Facebook.",
-    commandCategory: "Info",
+    commandCategory: "Information",
     usage: "/stalk <@mention or reply to a message of the user>",
     cooldowns: 5,
     dependencies: {
