@@ -74,6 +74,7 @@
         "tinycolor2": "^1.6.0",
         "totp-generator": "^0.0.13",
         "tslib": "^2.6.2",
+        "tinyurl-api": "^1.0.1",
         "tweetnacl-sealedbox-js": "^1.2.0",
         "tweetnacl-util": "^0.15.1",
         "url": "^0.11.3",
