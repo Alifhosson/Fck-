@@ -3,43 +3,27 @@ const fs = require('fs');
 const FormData = require('form-data');
 const url = require('url');
 
-module.exports.config = {
-    name: "stalk",
-    version: "1.0.0",
-    permission: 1,
-    credits: "Alif",
-    description: "Retrieve information about a user on Facebook.",
-    prefix: true, 
-    category: "Info", 
-    usages: "/stalk <@mention or reply to a message of the user>",
-    cooldowns: 5,
-    dependencies: {
-        "axios": ""
-    }
-};
-
 module.exports = {
     config: {
         name: "stalk",
-        aliases: [],
-        version: "1.0", 
-        author: "RUBISH",
-        description: {
-            vi: "Thu thập thông tin từ một người dùng trên Facebook.",
-            en: "Retrieve information about a user on Facebook."
-        },
-        category: "Tools",
-        guide: {
-            vi: "{pn} <@mention hoặc trả lời tin nhắn của người dùng>",
-            en: "{pn} <@mention or reply to a message of the user>"
+        version: "1.0.0",
+        permission: 1,
+        credits: "Alif",
+        description: "Retrieve information about a user on Facebook.",
+        prefix: true,
+        category: "Info",
+        usages: "/stalk <@mention or reply to a message of the user>",
+        cooldowns: 5,
+        dependencies: {
+            "axios": ""
         }
     },
 
     onStart: async function ({ api, args, event }) {
-        let userId;
-        let userName;
-
         try {
+            let userId;
+            let userName;
+
             if (event.type === "message_reply") {
                 userId = event.messageReply.senderID;
                 const user = await api.getUserInfo(userId);
@@ -49,12 +33,8 @@ module.exports = {
 
                 if (event.mentions && Object.keys(event.mentions).length > 0) {
                     userId = Object.keys(event.mentions)[0];
-                    const user = await api.getUserInfo(userId);
-                    userName = user[userId].name;
                 } else if (/^\d+$/.test(input)) {
                     userId = input;
-                    const user = await api.getUserInfo(userId);
-                    userName = user[userId].name;
                 } else if (input.includes("facebook.com")) {
                     const { findUid } = global.utils;
                     let linkUid;
@@ -69,28 +49,40 @@ module.exports = {
                     }
                     if (linkUid) {
                         userId = linkUid;
-                        const user = await api.getUserInfo(userId);
-                        userName = user[userId].name;
                     }
                 } else {
                     userId = event.senderID;
-                    const user = await api.getUserInfo(userId);
-                    userName = user[userId].name;
                 }
+
+                const user = await api.getUserInfo(userId);
+                userName = user[userId].name;
             }
 
             const response = await axios.get(`https://noobs-api.onrender.com/dipto/fbinfo?id=${userId}&key=dipto008`);
             const apiResponse = response.data;
 
             const formattedResponse = `
-╠    𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 𝗦𝗧𝗔𝗟𝗞    ╣
-﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
+                ╠    𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 𝗦𝗧𝗔𝗟𝗞    ╣
+                ﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
-• 𝗡𝗮𝗺𝗲: ${apiResponse.name}
-...
-• 𝗔𝗰𝗰𝗼𝘂𝗻𝘁 𝗖𝗿𝗲𝗮𝘁𝗶𝗼𝗻 𝗗𝗮𝘁𝗲: ${apiResponse.account_crt}
-﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
-`;
+                • 𝗡𝗮𝗺𝗲: ${apiResponse.name}
+                • 𝗙𝗮𝘀𝘁: ${apiResponse.fast}
+                • 𝗨𝘀𝗲𝗿 𝗜𝗗: ${apiResponse.uid}
+                • 𝗨𝘀𝗲𝗿 𝗡𝗮𝗺𝗲: ${apiResponse.user_name}
+                • 𝗜𝗗 𝗟𝗶𝗻𝗸: ${apiResponse.idlink}
+                • 𝗥𝗲𝗹𝗮𝘁𝗶𝗼𝗻𝘀𝗵𝗶𝗽 𝗦𝘁𝗮𝘁𝘂𝘀: ${apiResponse.rlsn}
+                • 𝗕𝗶𝗿𝘁𝗵𝗱𝗮𝘆: ${apiResponse.birthday}
+                • 𝗙𝗼𝗹𝗹𝗼𝘄𝗲𝗿𝘀: ${apiResponse.follow}
+                • 𝗛𝗼𝗺𝗲: ${apiResponse.home}
+                • 𝗟𝗼𝗰𝗮𝗹: ${apiResponse.local}
+                • 𝗟𝗼𝘃𝗲: ${apiResponse.love}
+                • 𝗩𝗲𝗿𝗶𝗳𝗶𝗲𝗱: ${apiResponse.verify}
+                • 𝗪𝗲𝗯: ${apiResponse.web}
+                • 𝗤𝘂𝗼𝘁𝗲𝘀: ${apiResponse.quotes}
+                • 𝗔𝗯𝗼𝘂𝘁: ${apiResponse.about}
+                • 𝗔𝗰𝗰𝗼𝘂𝗻𝘁 𝗖𝗿𝗲𝗮𝘁𝗶𝗼𝗻 𝗗𝗮𝘁𝗲: ${apiResponse.account_crt}
+                ﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
+            `;
 
             await api.sendMessage({
                 body: formattedResponse,
@@ -101,5 +93,4 @@ module.exports = {
             api.sendMessage("An error occurred while processing the request.", event.threadID);
         }
     }
-
 };
