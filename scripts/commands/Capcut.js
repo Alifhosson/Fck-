@@ -1,5 +1,6 @@
 const fs = require("fs");
 const axios = require("axios");
+const request = require("request");
 const tinyurl = require("tinyurl-api");
 
 module.exports = {
@@ -23,32 +24,35 @@ module.exports = {
     const templateUrl = templateUrlMatch ? templateUrlMatch[0] : null;
 
     if (!templateUrl || !templateUrl.includes("capcut.com")) {
-      return nayan.sendTextMessage("[ ! ] Invalid CapCut template link.", threadID);
+      return nayan.sendMessage("[ ! ] Invalid CapCut template link.", threadID, messageID);
     }
 
     try {
-      nayan.sendTextMessage("Please wait, the video is being downloaded...", threadID);
+      nayan.sendMessage("Please wait, the video is being downloaded...", threadID, (err, info) => setTimeout(() => { nayan.unsendMessage(info.messageID) }, 20000)); 
 
       const res = await axios.get(`https://xnx-api-mdrahad1234561.replit.app/capcut/dl?url=${encodeURIComponent(templateUrl)}`);
       console.log(res.data);
 
       const file = fs.createWriteStream(__dirname + '/cache/tik.mp4');
-      const shortenedUrl = await tinyurl(res.data.originalVideoUrl);
+      const shortenedUrl = await tinyurl(res.data.originalVideoUrl); 
+      const play = res.data.originalVideoUrl;
       const title = res.data.title;
       const usage = res.data.usage;
       const description = res.data.description;
+      const rqs = request(encodeURI(play));
 
-      const rqs = axios.get(res.data.originalVideoUrl, { responseType: 'stream' });
-      rqs.data.pipe(file);
-
+      rqs.pipe(file);  
       file.on('finish', () => {
-        setTimeout(() => {
-          nayan.sendMessage(`TITLE: ${title}\nDESCRIPTION: ${description}\nUSAGE: ${usage}\nURL: ${shortenedUrl}`, threadID, { attachment: fs.createReadStream(__dirname + '/cache/tik.mp4') });
+        setTimeout(function() {
+          return nayan.reply({
+            body: `TITLE: ${title}\n DESCRIPTION: ${description}\nUSAGE: ${usage}\n URL: ${shortenedUrl}`,
+            attachment: fs.createReadStream(__dirname + '/cache/tik.mp4')
+          }, threadID, messageID);
         }, 5000);
       });
     } catch (err) {
       console.error(err);
-      nayan.sendMessage(`An error occurred: ${err.message || err}`, threadID);
+      nayan.reply(`An error occurred: ${err.message || err}`, threadID, messageID);  
     }
   }
 };
