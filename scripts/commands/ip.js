@@ -1,41 +1,51 @@
 module.exports.config = {
-  name: "ip",
-  version: "0.0.2",
-  permission: 0,
-  prefix: true,
-  credits: "Nayan",
-  description: "info ip",
-  category: "admin",
-  usages: "address",
+    name: "ip",
+    version: "1.0.0",
+    permission: 1,
+    credits: "Alif",
+    description: "View your ip information or other ip",
+    prefix: true, 
+    category: "other", 
+    usages: "address",
     cooldowns: 5,
+    dependencies: {
+        "axios": ""
+    }
 };
 
-
-
-
-
-module.exports.run = async function({ api, event, args }) {
-    const axios = require("axios")
-    const request = require("request")
-    const fs = require("fs-extra")
-  const prompt = args.join(" ")
-  const { ip } = require("nayan-server");
-    const res = await ip(prompt);
-  console.log(res)
-        var msg = [];
-  const {data} = res
-  const avt = res.data.country_flag
-  const rqs = request(encodeURI(`${avt}`));
-fs.createWriteStream(__dirname + '/cache/flag.svg');
-
-
-        {
-            msg += `❐ IP: ${data.ip}\n❐ TYPE: ${data.type}\n❐ CONTINENT: ${data.continent}\n❐ CONTINENT CODE: ${data.continent_code}\n❐ COUNTRY: ${data.country}\n❐ COUNTRY CODE: ${data.country_code}\n❐ REGION: ${data.region}\n❐ CITY: ${data.city}\n❐ ORG: ${data.org}\n❐ ISP: ${data.isp}\n❐ ASN: ${data.asn}`
+module.exports.run = async function({ api, args, event, __GLOBAL }) {
+  const timeStart = Date.now();
+  
+    const axios = require("axios");
+  if (!args[0]) {api.sendMessage("Please enter the ip you want to check",event.threadID, event.messageID);}
+  else {
+var infoip = (await axios.get(`http://ip-api.com/json/${args.join(' ')}?fields=66846719`)).data;
+       if (infoip.status == 'fail')
+         {api.sendMessage(`Error! An error occurred. Please try again later: ${infoip.message}`, event.threadID, event.messageID)}
+          else {
+            /////////////////
+          //////////////////
+ api.sendMessage({body:`======${(Date.now()) - timeStart}ms=====
+ 🗺️Continent: ${infoip.continent}
+🏳️Nation: ${infoip.country}
+🎊Country Code: ${infoip.countryCode}
+🕋Area: ${infoip.region}
+⛱️Region/State: ${infoip.regionName}
+🏙️City: ${infoip.city}
+🛣️District: ${infoip.district}
+📮ZIP code: ${infoip.zip}
+🧭Latitude: ${infoip.lat}
+🧭Longitude: ${infoip.lon}
+⏱️Timezone: ${infoip.timezone}
+👨‍✈️Organization Name: ${infoip.org}
+💵Currency unit: ${infoip.currency}
+`,location: {
+				latitude: infoip.lat,
+				longitude: infoip.lon,
+				current: true
+			}}
+,event.threadID, event.messageID);}
         }
-
-        return api.sendMessage({
-            body: msg,
-           // attachment: allimage
-
-        }, event.threadID, event.messageID);
-    }
+    
+                  }
+                  
