@@ -11,7 +11,6 @@ module.exports.config = {
     dependencies: {
         "axios": ""
     }
-};
 
 }, module.exports.run = async function({
 	event: e,
